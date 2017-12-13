@@ -1,0 +1,59 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 10px 0;
+}
+
+input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #4fc3f7;
+  box-shadow: 0 1px 0 0 #4fc3f7;
+}
+
+html, body {
+  height: 100vh;
+}
+
+body {
+  color: #333;
+  background-color: #efefef;
+  opacity: 1;
+  text-shadow: 1px 1px 300px black;
+  transition: 300ms all ease;
+}
+
+app {
+  display: flex;
+}
+
+section {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.login .btn {
+  display: block;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#content {
+  text-align: center;
+  width: 100%;
+}
+
+footer {
+  width: 100%;
+}
