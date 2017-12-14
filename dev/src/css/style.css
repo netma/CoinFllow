@@ -19,7 +19,7 @@ html, body {
 
 body {
   color: #333;
-  background-color: #efefef;
+  background-color: #fdfdfd;
   opacity: 1;
   text-shadow: 1px 1px 300px black;
   transition: 300ms all ease;

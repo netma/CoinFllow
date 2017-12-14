@@ -10,7 +10,7 @@ export function loginSkeleton(data) {
         </form>
         <button class="btn waves-effect waves-light light-blue lighten-2" id="google-sign">Sign in with Google</button>
         <p>
-          <a href="" id="switchForm">No account? Sign up here.</a>
+          <a href="" id="switchForm">No account? Sign up here!</a>
         </p>
       <div>
     </section>

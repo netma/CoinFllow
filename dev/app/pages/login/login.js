@@ -40,7 +40,7 @@ export class LoginPage {
           break;
         case true:
           document.getElementById('switchForm').classList.toggle('create');
-          document.getElementById('switchForm').innerHTML = 'No account? Sign up.';
+          document.getElementById('switchForm').innerHTML = 'No account? Sign up!';
           document.querySelector('#email-sign').innerHTML = 'Log In';
           document.querySelector('#google-sign').innerHTML = 'Sign In with Google';
           break;
