@@ -38,19 +38,13 @@ export class FirebaseProvider {
   signWithGoogle() {
     let provider = new firebase.auth.GoogleAuthProvider();
     this.auth.signInWithPopup(provider)
-/*    .then(result=>{
-      var token = result.credential.accessToken;
-      var user = result.user;
-      console.log('user', token)
-      console.log('user', user)
-    })*/
-    .catch(error=>{
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      var email = error.email;
-      var credential = error.credential;
-      console.log(errorCode, errorMessage, email, credential);
-    });
+      .catch(error=>{
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        var email = error.email;
+        var credential = error.credential;
+        console.log(errorCode, errorMessage, email, credential);
+      });
   }
 
   // Add an item to firebase collection

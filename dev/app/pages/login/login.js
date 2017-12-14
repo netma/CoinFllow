@@ -9,12 +9,16 @@ export class LoginPage {
   }
 
   initUI() {
-    if (document.getElementsByTagName('section')[0]) {
-      document.getElementsByTagName('section')[0].parentNode.removeChild(document.getElementsByTagName('section')[0]);
+    // Clear existing page content
+    if (document.querySelector('section')) {
+      document.querySelector('section').parentNode.removeChild(document.querySelector('section'));
     }
+
+    // Insert page content
     let contentHtml = this.getPageSkeleton();
     this.app.insertAdjacentHTML('afterbegin', contentHtml);
 
+    // Load all page events
     this.loadEventUI();
   }
 

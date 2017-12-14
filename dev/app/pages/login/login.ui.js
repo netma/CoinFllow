@@ -1,6 +1,6 @@
 export function loginSkeleton(data) {
   return `
-    <section>
+    <section class="login">
       <div class="login">
         <h1>${data.title}</h1>
         <form id="loginForm">
