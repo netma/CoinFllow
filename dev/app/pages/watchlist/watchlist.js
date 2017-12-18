@@ -1,15 +1,18 @@
 import { watchlistSkeleton } from './watchlist.ui';
+import { CryptocompareProvider } from '../../providers/cryptocompare/cryptocompare-provider';
 
 export class WatchListPage {
   constructor(app, fb, user) {
     this.app = app;
     this.fb = fb;
     this.user = user;
+    this.cryptocompare = new CryptocompareProvider();
     this.dataNode = 'watchlist';
     this.initUI();
     this.addWatchlist();
     this.deleteWatchlist();
     //this.addCrypto('ETH');
+    this.cryptocompare.getCoinList();
   }
 
   initUI() {

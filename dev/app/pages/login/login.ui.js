@@ -2,7 +2,7 @@ export function loginSkeleton(data) {
   return `
     <section class="login">
       <div class="login">
-        <h1>${data.title}</h1>
+        <h1><img class="logo" src="../src/img/CoinFllow_v2.svg">${data.title}</h1>
         <form id="loginForm">
           <input class="" type="email" name="email" placeholder="Email address">
           <input type="password" name="password" placeholder="Password">

@@ -6,9 +6,9 @@ export function watchlistSkeleton(data) {
           <li>Connected as ${data.userEmail}</li>
           <li><a href="#!" class="logout">Logout</a></li>
         </ul>
-        <nav>
+        <nav class="light-blue lighten-3">
           <div class="nav-wrapper">
-            <a href="#!" class="brand-logo left">CoinFllow</a>
+            <a href="#!" class="brand-logo left"><img src="../src/img/CoinFllow_v2.svg">CoinFllow</a>
             <a href="#" data-activates="mobile-demo" class="button-collapse right"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
               <li><a href="#!" class="watchlist">Watch List</a></li>
