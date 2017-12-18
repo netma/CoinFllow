@@ -8,10 +8,12 @@ export class WatchListPage {
     this.user = user;
     this.cryptocompare = new CryptocompareProvider();
     this.dataNode = 'watchlist';
+    this.watchlistCurrencies = {};
     this.initUI();
     this.addWatchlist();
+    this.updateWatchlist();
     this.deleteWatchlist();
-    //this.addCrypto('ETH');
+    //this.addCrypto('XXX');
     this.cryptocompare.getCoinList();
   }
 
@@ -42,43 +44,27 @@ export class WatchListPage {
     document.querySelector('#cryptolist').addEventListener('click', event=>{
       event.preventDefault();
 
+      // Click on delete
       if (event.target.nodeName == 'I') {
-
-        console.log(event.target.closest('a').classList.contains('delete'));
-
+        if (event.target.closest('a').classList.contains('delete')) {
+          this.fb.firebaseRemove(this.user.uid, event.target.closest('li').id);
+        }
       }
-
-
-
-/*      if (event.target.nodeName != 'BUTTON') {
-        return;
-      }
-      let li = event.target.closest('li');
-      switch (event.target.className) {
-        case 'delete':
-          this.fb.firebaseRemove(this.user.uid, li.id);
-          break;
-      }*/
     });
 
 
   }
-
 
   // save new link
   addCrypto(symbol) {
     if (symbol == '') {
       return;
     }
-
     let data = {};
     data['symbol'] = symbol;
     this.fb.dataNode = this.dataNode;
     this.fb.firebasePush(this.user.uid, data);
   }
-
-
-
 
   getPageSkeleton() {
     let data = {};
@@ -86,7 +72,13 @@ export class WatchListPage {
     return watchlistSkeleton(data);
   }
 
-  // Add crypto currencies to watch list
+  listUpdateValues() {
+
+    this.watchlistCurrencies;
+
+  }
+
+  // Add crypto currency to watch list
   addWatchlist() {
     this.fb.dataNode = this.dataNode;
     this.fb
@@ -102,10 +94,23 @@ export class WatchListPage {
             </div>
           </li>
         `);
+        this.watchlistCurrencies[snapshot.key] = snapshot.val().symbol;
       });
   }
 
-  // Delete crypto currencies from watch list
+  // Update crypto currency in watch list
+  updateWatchlist() {
+    this.fb.dataNode = this.dataNode;
+    this.fb
+      .getFirebaseRef()
+      .child(this.user.uid)
+      .on('child_changed', snapshot=>{
+        document.querySelector(`#${snapshot.key} a`).innerHTML = snapshot.val().symbol;
+        this.watchlistCurrencies[snapshot.key] = snapshot.val().symbol;
+    });
+  }
+
+  // Delete crypto currency from watch list
   deleteWatchlist() {
     this.fb.dataNode = this.dataNode;
     this.fb
@@ -113,6 +118,7 @@ export class WatchListPage {
       .child(this.user.uid)
       .on('child_removed', snapshot=>{
         document.getElementById(snapshot.key).parentElement.removeChild(document.getElementById(snapshot.key));
+        delete this.watchlistCurrencies[snapshot.key];
     });
   }
 }

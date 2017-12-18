@@ -41,7 +41,7 @@ section.login {
 }
 
 section.watchlist {
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
   justify-content: flex-start;
 }
@@ -58,6 +58,21 @@ section.watchlist {
   width: 100%;
 }
 
+.btn-google {
+  background-color: #4585f4;
+  height: 44px;
+  line-height: 44px;
+  padding: 0px;
+  position: relative;
+}
+
+.btn-google img {
+  float: left;
+  position: absolute;
+  left: -1px;
+  top: -1px;
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -68,12 +83,27 @@ nav .brand-logo img {
   float: left;
   padding: 10px 10px 0 10px;
   vertical-align: middle;
-  height: 55px;
+  height: 48px;
+}
+
+@media only screen and (min-width: 601px) {
+  nav .brand-logo img {
+    height: 55px;
+  }
 }
 
 #content {
+  padding: 20px 0;
+  overflow: hidden;
   text-align: center;
   width: 100%;
+}
+
+@media only screen and (min-width: 601px) {
+  #content {
+    padding: 20px 60px;
+    max-width: 1200px;
+  }
 }
 
 .collection-item {
