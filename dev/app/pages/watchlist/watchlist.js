@@ -8,11 +8,13 @@ export class WatchListPage {
     this.user = user;
     this.cryptocompare = new CryptocompareProvider();
     this.dataNode = 'watchlist';
-    this.watchlistCurrencies = {};
+    this.watchlistCurrencies = [];
     this.initUI();
     this.addWatchlist();
     this.updateWatchlist();
     this.deleteWatchlist();
+    this.updateCryptoValues();
+
     //this.addCrypto('XXX');
     this.cryptocompare.getCoinList();
   }
@@ -72,12 +74,6 @@ export class WatchListPage {
     return watchlistSkeleton(data);
   }
 
-  listUpdateValues() {
-
-    this.watchlistCurrencies;
-
-  }
-
   // Add crypto currency to watch list
   addWatchlist() {
     this.fb.dataNode = this.dataNode;
@@ -120,5 +116,25 @@ export class WatchListPage {
         document.getElementById(snapshot.key).parentElement.removeChild(document.getElementById(snapshot.key));
         delete this.watchlistCurrencies[snapshot.key];
     });
+  }
+
+  updateCryptoValues() {
+
+
+    let test = {
+      '-L0Q5-qtJGCGIpSAqG69': 'BTC',
+      '-L0Q7Xe6dsp628j7M_Em': 'ACOIN',
+      '-L0Q53opHEmQUDbJxKbL': 'ETH',
+      '-L0Q582F__6tKV12-dcG': 'XRP',
+      '-L0QAmmoQKeDgIb_Tmvx': 'LTC',
+      '-L0QBh7Wj4d-w5h8mnEA': 'XMR'
+    }
+
+    console.log(this.watchlistCurrencies);
+    console.log(test);
+
+
+
+
   }
 }

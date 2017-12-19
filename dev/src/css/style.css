@@ -52,16 +52,19 @@ section.watchlist {
   vertical-align: top;
 }
 
-.login .btn {
+.login .btn-flat {
+  color: #fff;
   display: block;
+  font-weight: 400;
+  letter-spacing: 0.5px;
   margin-bottom: 16px;
   width: 100%;
 }
 
 .btn-google {
   background-color: #4585f4;
-  height: 44px;
-  line-height: 44px;
+  height: 42px;
+  line-height: 42px;
   padding: 0px;
   position: relative;
 }
@@ -69,8 +72,8 @@ section.watchlist {
 .btn-google img {
   float: left;
   position: absolute;
-  left: -1px;
-  top: -1px;
+  left: -2px;
+  top: -2px;
 }
 
 header {
