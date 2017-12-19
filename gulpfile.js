@@ -50,7 +50,8 @@ gulp.task('copy-static', function(){
 gulp.task('js-deps', function(){
   return gulp.src([
     'node_modules/jquery/dist/jquery.min.js',
-    'node_modules/materialize-css/dist/js/materialize.min.js'
+    'node_modules/materialize-css/dist/js/materialize.min.js',
+    'node_modules/chart.js/dist/Chart.min.js'
   ])
   .pipe(concat('js-deps.js'))
   .pipe(gulp.dest(config.destDir + '/js'));

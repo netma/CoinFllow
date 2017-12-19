@@ -8,7 +8,8 @@ export class WatchListPage {
     this.user = user;
     this.cryptocompare = new CryptocompareProvider();
     this.dataNode = 'watchlist';
-    this.watchlistCurrencies = [];
+    this.listReady = false;
+    this.watchlistCurrencies = {};
     this.initUI();
     this.addWatchlist();
     this.updateWatchlist();
@@ -53,8 +54,6 @@ export class WatchListPage {
         }
       }
     });
-
-
   }
 
   // save new link
@@ -85,12 +84,13 @@ export class WatchListPage {
           <li id="${snapshot.key}" class="collection-item">
             <a href="">${snapshot.val().symbol}</a>
             <div class="secondary-content">
-              <span>{value}</span>
+              <span class="price">-</span>
               <a href="" class="delete"><i class="material-icons small">delete_forever</i></a>
             </div>
           </li>
         `);
-        this.watchlistCurrencies[snapshot.key] = snapshot.val().symbol;
+        this.watchlistCurrencies[snapshot.key] = { symbol: snapshot.val().symbol };
+        this.listReady = true;
       });
   }
 
@@ -102,7 +102,7 @@ export class WatchListPage {
       .child(this.user.uid)
       .on('child_changed', snapshot=>{
         document.querySelector(`#${snapshot.key} a`).innerHTML = snapshot.val().symbol;
-        this.watchlistCurrencies[snapshot.key] = snapshot.val().symbol;
+        this.watchlistCurrencies[snapshot.key] = { symbol: snapshot.val().symbol };
     });
   }
 
@@ -120,21 +120,30 @@ export class WatchListPage {
 
   updateCryptoValues() {
 
+setInterval(_=>{
 
-    let test = {
-      '-L0Q5-qtJGCGIpSAqG69': 'BTC',
-      '-L0Q7Xe6dsp628j7M_Em': 'ACOIN',
-      '-L0Q53opHEmQUDbJxKbL': 'ETH',
-      '-L0Q582F__6tKV12-dcG': 'XRP',
-      '-L0QAmmoQKeDgIb_Tmvx': 'LTC',
-      '-L0QBh7Wj4d-w5h8mnEA': 'XMR'
-    }
+    //if (this.listReady) {
 
-    console.log(this.watchlistCurrencies);
-    console.log(test);
+      this.cryptocompare.getPrices(this.watchlistCurrencies)
+      .then(val=>{
+        for (let i in this.watchlistCurrencies) {
+          if (val[this.watchlistCurrencies[i].symbol]) {
+            console.log(i);
+            console.log(this.watchlistCurrencies[i].symbol);
+            console.log(val[this.watchlistCurrencies[i].symbol].USD);
+            if (document.querySelector(`#${i}`)) {
+              document.querySelector(`#${i} .price`).innerHTML = val[this.watchlistCurrencies[i].symbol].USD;
+            }
+          }
+        }
+      });
+    //}
 
-
-
+}, 10000);
 
   }
+
+
+
+
 }

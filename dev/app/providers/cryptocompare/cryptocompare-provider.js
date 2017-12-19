@@ -21,8 +21,21 @@ export class CryptocompareProvider {
     console.log(this.data);
   }
 
-  getPrices(currencies) {
-    
-
+  getPrices(cryptoList, currency = this.params.defaultCurrency) {
+    return new Promise((resolve, reject) => {
+      let symbolList = [];
+      for (let item in cryptoList) {
+        symbolList.push(cryptoList[item].symbol);
+      }
+      let url = this.params.urlPriceMulti.replace('$1', symbolList.join(','));
+      url = url.replace('$2', currency);
+      fetch(url, {
+        method: 'GET'
+      })
+      .then((resp)=>resp.json())
+      .then((data)=>{
+        resolve(data);
+      });
+    });
   }
 }
