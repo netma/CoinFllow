@@ -35,13 +35,15 @@ export class WatchListPage {
   }
 
   loadEventUI() {
-    document.querySelector('a.logout').addEventListener('click', event=>{
-      event.preventDefault();
-      this.fb.auth.signOut();
+    // Logout
+    document.querySelectorAll('a.logout').forEach(el=>{
+      el.addEventListener('click', event=>{
+        event.preventDefault();
+        this.fb.auth.signOut();
+      });
     });
     $('.dropdown-button').dropdown();
     $('.button-collapse').sideNav();
-
 
     // Clicks on a crypto currency
     document.querySelector('#cryptolist').addEventListener('click', event=>{
