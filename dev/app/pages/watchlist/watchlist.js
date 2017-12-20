@@ -1,5 +1,6 @@
 import { watchlistSkeleton } from './watchlist.ui';
 import { CryptocompareProvider } from '../../providers/cryptocompare/cryptocompare-provider';
+import { CryptoDetailsPage } from '../cryptodetails/cryptodetails';
 
 export class WatchListPage {
   constructor(app, fb, user) {
@@ -16,6 +17,7 @@ export class WatchListPage {
     this.deleteWatchlist();
     this.updateCryptoValues();
 
+//TODO
     //this.addCrypto('XXX');
     this.cryptocompare.getCoinList();
   }
@@ -49,6 +51,12 @@ export class WatchListPage {
     document.querySelector('#cryptolist').addEventListener('click', event=>{
       event.preventDefault();
 
+      // Click on a crypto currency
+      if (event.target.nodeName == 'A') {
+        let crypto = event.target.innerHTML;
+        new CryptoDetailsPage(this.app, this.fb, this.user, crypto);
+      }
+
       // Click on delete
       if (event.target.nodeName == 'I') {
         if (event.target.closest('a').classList.contains('delete')) {
@@ -56,6 +64,12 @@ export class WatchListPage {
         }
       }
     });
+  }
+
+  getPageSkeleton() {
+    let data = {};
+    data.userEmail = this.user.email;
+    return watchlistSkeleton(data);
   }
 
   // save new link
@@ -67,12 +81,6 @@ export class WatchListPage {
     data['symbol'] = symbol;
     this.fb.dataNode = this.dataNode;
     this.fb.firebasePush(this.user.uid, data);
-  }
-
-  getPageSkeleton() {
-    let data = {};
-    data.userEmail = this.user.email;
-    return watchlistSkeleton(data);
   }
 
   // Add crypto currency to watch list
@@ -121,31 +129,18 @@ export class WatchListPage {
   }
 
   updateCryptoValues() {
-
-setInterval(_=>{
-
-    //if (this.listReady) {
-
+    if (this.listReady) {
       this.cryptocompare.getPrices(this.watchlistCurrencies)
-      .then(val=>{
+      .then(res=>{
         for (let i in this.watchlistCurrencies) {
-          if (val[this.watchlistCurrencies[i].symbol]) {
-            console.log(i);
-            console.log(this.watchlistCurrencies[i].symbol);
-            console.log(val[this.watchlistCurrencies[i].symbol].USD);
+          if (res[this.watchlistCurrencies[i].symbol]) {
             if (document.querySelector(`#${i}`)) {
-              document.querySelector(`#${i} .price`).innerHTML = val[this.watchlistCurrencies[i].symbol].USD;
+              document.querySelector(`#${i} .price`).innerHTML = res[this.watchlistCurrencies[i].symbol].USD;
             }
           }
         }
       });
-    //}
-
-}, 10000);
-
+    }
+    setTimeout(_=>this.updateCryptoValues(), (!this.listReady) ? 1000 : 10000);
   }
-
-
-
-
 }

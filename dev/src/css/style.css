@@ -37,7 +37,8 @@ section.login {
   justify-content: center;
 }
 
-section.watchlist {
+section.watchlist,
+section.cryptodetails {
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
