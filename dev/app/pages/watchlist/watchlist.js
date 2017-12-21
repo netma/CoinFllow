@@ -18,7 +18,7 @@ export class WatchListPage {
     this.updateCryptoValues();
 
 //TODO
-    //this.addCrypto('XXX');
+    //this.addCrypto('XRP');
     this.cryptocompare.getCoinList();
   }
 

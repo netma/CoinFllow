@@ -1,7 +1,6 @@
 export const CONFIG = {
   defaultCurrency: 'USD',
   urlCoinList: 'https://www.cryptocompare.com/api/data/coinlist/',
-  urlPrice: 'https://min-api.cryptocompare.com/data/price?fsym=$1&tsyms=$2',
   urlPriceMulti: 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=$1&tsyms=$2',
   urlPriceMultiFull: 'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=$1&tsyms=$2',
   urlHistoDay: 'https://min-api.cryptocompare.com/data/histoday?fsym=$1&tsym=$2&limit=$3&aggregate=1&toTs=$4'
