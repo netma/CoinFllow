@@ -11,6 +11,7 @@ export class CryptoDetailsPage {
     this.crypto = crypto;
     this.cryptocompare = new CryptocompareProvider();
     this.currency = this.cryptocompare.params.defaultCurrency;
+    this.th = null;
     this.initUI();
   }
 
@@ -23,13 +24,8 @@ export class CryptoDetailsPage {
     // Insert page content
     let contentHtml = this.getPageSkeleton();
     this.app.insertAdjacentHTML('afterbegin', contentHtml);
-
-
-
-
     this.addCryptoDetailsContent();
     this.addCryptoChartContent();
-
 
     // Load all page events
     this.loadEventUI();
@@ -49,6 +45,9 @@ export class CryptoDetailsPage {
     // Close crypto currency details view and go back to watch list
     document.getElementById('cryptodetails-close').addEventListener('click', event=>{
       event.preventDefault();
+      if (this.th != null) {
+        clearTimeout(this.th);
+      }
       new WatchListPage(this.app, this.fb, this.user);
     });
   }
@@ -72,6 +71,7 @@ export class CryptoDetailsPage {
         <li class="collection-item"><div>Open (24h)<span id="open24h" class="secondary-content">${cryptoData.OPEN24HOUR}</span></div></li>
         <li class="collection-item"><div>Total Volume (24h)<span id="vol24h" class="secondary-content">${cryptoData.TOTALVOLUME24H}</span></div></li>
       `;
+      this.updateCryptoDetailsContent();
     });
   }
 
@@ -79,73 +79,79 @@ export class CryptoDetailsPage {
     this.cryptocompare.getCryptoHistoData(this.crypto)
     .then(res=>{
       let coinHistory = res['Data'].map((a) => (a.close));
+      let xLabels = res['Data'].map((a)=>(new Date(a.time * 1000)));
       document.getElementById('cryptochart').innerHTML = `
         <canvas id="canvas"></canvas>
       `;
       let ctx = document.getElementById('canvas').getContext('2d');
-
       let chartConfig = {
         type: 'line',
         data: {
-          labels: coinHistory,
+          labels: xLabels,
           datasets: [{
-              data: coinHistory,
-              borderColor: '#039be5',
-              fill: false
-            }
-          ]
+            data: coinHistory,
+            borderColor: '#039be5',
+            fill: false
+          }]
         },
         options: {
           title:{
-              display: true,
-              text: '30 Past Days History'
+            display: true,
+            fontSize: 16,
+            fontStyle: 'normal',
+            fontColor: '#d18000',
+            text: 'Last 30 Days History'
           },
           tooltips: {
+            mode: 'nearest',
+            intersect: false,
             callbacks: {
-                label: function(tooltipItems, data) {
-                    return "$" + tooltipItems.yLabel.toString();
+              label: (tooltipItem, chart)=>{
+                return `${tooltipItem.yLabel.toString()} ${this.currency}`;
+              },
+              labelColor: function(tooltipItem, chart) {
+                return {
+                  borderColor: '#039be5',
+                  backgroundColor: '#039be5'
                 }
               }
-            },
-            responsive: true,
-            legend: {
-              display: false
+            }
+          },
+          responsive: true,
+          legend: {
+            display: false
           },
           scales: {
             xAxes: [{
-//              display: false
-
-              display: true,
-              scaleLabel: {
-                  display: true,
-                  labelString: 'Days'
-              }
-
+              display: false
             }],
             yAxes: [{
-//              display: false
-              display: true,
-              scaleLabel: {
-                  display: true,
-                  labelString: this.currency
-              },
-              ticks: {
-                  stepSize: 1000
-              }
+              display: false
             }],
           }
         }
       };
       let myChart = new Chart(ctx, chartConfig);
-
-
-
-
-
     });
   }
 
   updateCryptoDetailsContent() {
-
+    this.cryptocompare.getCryptoDetails(this.crypto)
+    .then(res=>{
+      let cryptoData = res.DISPLAY[this.crypto][this.currency];
+      document.getElementById('change24h').innerHTML = `${(cryptoData.CHANGEPCT24HOUR < 0) ? '' : '+'}${cryptoData.CHANGEPCT24HOUR}%`;
+      if (cryptoData.CHANGEPCT24HOUR < 0 && [...document.getElementById('change24h').classList].includes('positive')) {
+        document.getElementById('change24h').classList.replace('positive', 'negative');
+      }
+      if (cryptoData.CHANGEPCT24HOUR > 0 && [...document.getElementById('change24h').classList].includes('negative')) {
+        document.getElementById('change24h').classList.replace('negative', 'positive');
+      }
+      document.getElementById('price').innerHTML = `${cryptoData.PRICE}`;
+      document.getElementById('low24h').innerHTML = `${cryptoData.LOW24HOUR}`;
+      document.getElementById('high24h').innerHTML = `${cryptoData.HIGH24HOUR}`;
+      document.getElementById('open24h').innerHTML = `${cryptoData.OPEN24HOUR}`;
+      document.getElementById('vol24h').innerHTML = `${cryptoData.TOTALVOLUME24H}`;
+    });
+    this. th = setTimeout(_=>this.updateCryptoDetailsContent(), 10000);
   }
 }

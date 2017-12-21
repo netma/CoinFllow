@@ -64,7 +64,7 @@ export class CryptocompareProvider {
       let url = this.params.urlHistoDay.replace('$1', crypto);
       url = url.replace('$2', currency);
       url = url.replace('$3', limit);
-      url = url.replace('$4', timestamp); console.log(url);
+      url = url.replace('$4', timestamp);
       fetch(url, {
         method: 'GET'
       })

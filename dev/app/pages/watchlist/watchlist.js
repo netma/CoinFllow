@@ -11,6 +11,7 @@ export class WatchListPage {
     this.dataNode = 'watchlist';
     this.listReady = false;
     this.watchlistCurrencies = {};
+    this.th = null;
     this.initUI();
     this.addWatchlist();
     this.updateWatchlist();
@@ -54,6 +55,9 @@ export class WatchListPage {
       // Click on a crypto currency
       if (event.target.nodeName == 'A') {
         let crypto = event.target.innerHTML;
+        if (this.th != null) {
+          clearTimeout(this.th);
+        }
         new CryptoDetailsPage(this.app, this.fb, this.user, crypto);
       }
 
@@ -141,6 +145,6 @@ export class WatchListPage {
         }
       });
     }
-    setTimeout(_=>this.updateCryptoValues(), (!this.listReady) ? 1000 : 10000);
+    this.th = setTimeout(_=>this.updateCryptoValues(), (!this.listReady) ? 1000 : 10000);
   }
 }
