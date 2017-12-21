@@ -13,7 +13,6 @@ export class FirebaseProvider {
   createEmailAccount(email, password) {
     this.auth
         .createUserWithEmailAndPassword(email, password)
-        .then(response => console.log(response))
         .catch((error)=> {
           // Handle Errors here.
           let errorCode = error.code;
@@ -26,7 +25,6 @@ export class FirebaseProvider {
   loginEmailAccount(email, password) {
     this.auth
         .signInWithEmailAndPassword(email, password)
-        .then(response => console.log(response))
         .catch((error)=> {
           // Handle Errors here.
           let errorCode = error.code;
