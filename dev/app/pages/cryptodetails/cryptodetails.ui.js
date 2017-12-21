@@ -16,7 +16,8 @@ export function cryptodetailsSkeleton(data) {
               <li><a class="dropdown-button right" href="" data-activates="dropdown1"><i class="material-icons medium right">person</i></a></li>
             </ul>
             <ul class="side-nav" id="mobile-demo">
-              <li><i class="material-icons small">person</i> ${data.userEmail}</li>
+              <li><span><i class="material-icons small">person</i><span></li>
+              <li><span>${data.userEmail}<span></li>
               <li><a class="logout" href="">Logout</a></li>
               <li class="divider"></li>
               <li><a href="" class="watchlist">Watch List</a></li>
@@ -27,8 +28,8 @@ export function cryptodetailsSkeleton(data) {
       </header>
       <div id="content">
         <a href="" id="cryptodetails-close" class="right"><i class="material-icons">clear</i><a>
-        <h1>${data.crypto}</h1>
         <ul id="cryptodetails" class="collection with-header"></ul>
+        <div id="cryptochart"></div>
       </div>
     </section>
   `;

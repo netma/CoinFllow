@@ -87,6 +87,16 @@ nav .brand-logo img {
   height: 48px;
 }
 
+.side-nav li>span {
+    color: rgba(0,0,0,0.87);
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    height: 48px;
+    line-height: 48px;
+    padding: 0 32px;
+}
+
 @media only screen and (min-width: 601px) {
   nav .brand-logo img {
     height: 55px;
@@ -126,6 +136,19 @@ a.delete .material-icons {
 .secondary-content {
   color: #333;
 }
+
+#cryptodetails-close {
+  padding-top: 16px;
+}
+
+#cryptodetails {
+  margin-top: 50px;
+}
+
+#cryptodetails h1 {
+  text-align: left;
+}
+
 
 .material-icons {
   vertical-align: middle;

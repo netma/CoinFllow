@@ -60,7 +60,19 @@ export class CryptoDetailsPage {
   addCryptoDetailsContent() {
     this.cryptocompare.getCryptoDetails(this.crypto)
     .then(res=>{
+
+
+    document.getElementById('cryptodetails').innerHTML = `
+      <li class="collection-header"><h1>${this.crypto}</h1></li>
+      <li class="collection-item"><div>xxx<span class="secondary-content">xxx</span></div></li>
+      <li class="collection-item"><div>xxx<span class="secondary-content">xxx</span></div></li>
+      <li class="collection-item"><div>xxx<span class="secondary-content">xxx</span></div></li>
+    `;
+
       console.log(res);
+
+
+
     });
   }
 
@@ -69,5 +81,9 @@ export class CryptoDetailsPage {
     .then(res=>{
       console.log(res);
     });
+  }
+
+  updateCryptoDetailsContent() {
+
   }
 }
