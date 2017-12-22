@@ -57,7 +57,7 @@ export class WatchListPage {
       $('input.autocomplete').autocomplete({
         data: this.cryptocompare.getCoinList(),
         limit: 7,
-        onAutocomplete: function(val) {
+        onAutocomplete: (val)=>{
           this.addCrypto = $.proxy(this.addCrypto, this);
           this.addCrypto(val);
           document.querySelector('.autocomplete-coinlist').value = '';
