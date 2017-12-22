@@ -95,6 +95,11 @@ export class CryptoDetailsPage {
           }]
         },
         options: {
+          elements:{
+            point:{
+              backgroundColor: '#afd8ff'
+            }
+          },
           title:{
             display: true,
             fontSize: 16,
