@@ -22,7 +22,18 @@ export function watchlistSkeleton(data) {
       </header>
       <div id="content">
         <h1>Watch List</h1>
+        <div><a class="left" id="addCryptoList" href=""><i class="material-icons">add</i></a><span class="cryptoListCurrency right">${data.currency}</span></div>
         <ul id="cryptolist" class="collection with-header"></ul>
+      </div>
+      <div id="modal1" class="modal modal-fixed-footer">
+        <div id="add-crypto-content" class="modal-content">
+          <i class="material-icons left prefix">attach_money</i>
+          <input type="text" id="autocomplete-input" class="autocomplete-coinlist autocomplete" placeholder="Search crypto currency to add">
+          <p class="status-msg"></p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+        </div>
       </div>
     </section>
   `;

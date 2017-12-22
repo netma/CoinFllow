@@ -164,6 +164,18 @@ a.delete .material-icons {
   color: #333;
 }
 
+#cryptolist {
+  clear: both;
+}
+
+#addCryptoList {
+  padding: 10px 0 7px 5px;
+}
+
+.cryptoListCurrency {
+  padding: 13px 13px 7px 0;
+}
+
 #cryptodetails-close {
   padding-top: 16px;
 }

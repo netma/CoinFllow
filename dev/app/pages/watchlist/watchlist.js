@@ -8,6 +8,7 @@ export class WatchListPage {
     this.fb = fb;
     this.user = user;
     this.cryptocompare = new CryptocompareProvider();
+    this.currency = this.cryptocompare.params.defaultCurrency;
     this.dataNode = 'watchlist';
     this.listReady = false;
     this.watchlistCurrencies = {};
@@ -17,10 +18,7 @@ export class WatchListPage {
     this.updateWatchlist();
     this.deleteWatchlist();
     this.updateCryptoValues();
-
-//TODO
-    //this.addCrypto('XRP');
-    this.cryptocompare.getCoinList();
+    $('.modal').modal();
   }
 
   initUI() {
@@ -48,6 +46,32 @@ export class WatchListPage {
     $('.dropdown-button').dropdown();
     $('.button-collapse').sideNav();
 
+    // Click on add a crypto icon
+    document.getElementById('addCryptoList').addEventListener('click', event=>{
+      event.preventDefault();
+
+
+//this.addCrypto = $.proxy(this.addCrypto, this);
+
+      $('#modal1').modal('open');
+      $('input.autocomplete').autocomplete({
+        data: this.cryptocompare.getCoinList(),
+        limit: 7,
+        onAutocomplete: function(val) {
+          this.addCrypto = $.proxy(this.addCrypto, this);
+          this.addCrypto(val);
+          document.querySelector('.autocomplete-coinlist').value = '';
+          document.querySelector('.status-msg').innerHTML = `${val} added successfuly!`;
+
+
+
+
+
+        },
+        minLength: 1,
+      });
+    });
+
     // Clicks on a crypto currency
     document.querySelector('#cryptolist').addEventListener('click', event=>{
       event.preventDefault();
@@ -73,10 +97,11 @@ export class WatchListPage {
   getPageSkeleton() {
     let data = {};
     data.userEmail = this.user.email;
+    data.currency = this.currency;
     return watchlistSkeleton(data);
   }
 
-  // save new link
+  // Save new crypto currency in firebase
   addCrypto(symbol) {
     if (symbol == '') {
       return;

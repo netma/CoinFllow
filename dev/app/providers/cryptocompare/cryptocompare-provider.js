@@ -7,18 +7,11 @@ export class CryptocompareProvider {
   }
 
   getCoinList() {
-/*    return fetch(this.params.urlCoinList, {
-      method: 'GET'
-    })
-    .then(
-      res=>{
-        res.json();
-        console.log(res);
-      }
-    )
-    .catch(err => alert(err.toString()));*/
-
-    console.log(this.data);
+    let coinList = {};
+    for (let coin in this.data.Data) {
+      coinList[this.data.Data[coin].Symbol] = null;
+    }
+    return coinList;
   }
 
   getPrices(cryptoList, currency = this.params.defaultCurrency) {
